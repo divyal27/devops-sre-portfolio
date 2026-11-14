@@ -1,6 +1,7 @@
 import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
-import { Terminal, ShieldCheck, Activity, ExternalLink, ArrowRight, CheckCircle2, Layers } from 'lucide-react';
+import { Terminal, ShieldCheck, Activity, ExternalLink, Layers } from 'lucide-react';
 import { GithubIcon } from './Icons';
 
 export default function RoleCockpit({ activeTrack, setActiveTrack }) {
@@ -28,7 +29,9 @@ export default function RoleCockpit({ activeTrack, setActiveTrack }) {
 
           {/* 3-Track Segmented Controller */}
           <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => setActiveTrack('devops')}
               className={`neo-btn flex items-center gap-2 px-4 py-2 font-black transition-all ${
                 activeTrack === 'devops'
@@ -38,9 +41,11 @@ export default function RoleCockpit({ activeTrack, setActiveTrack }) {
             >
               <Terminal className="h-4 w-4" />
               <span>DevOps</span>
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => setActiveTrack('devsecops')}
               className={`neo-btn flex items-center gap-2 px-4 py-2 font-black transition-all ${
                 activeTrack === 'devsecops'
@@ -50,9 +55,11 @@ export default function RoleCockpit({ activeTrack, setActiveTrack }) {
             >
               <ShieldCheck className="h-4 w-4" />
               <span>DevSecOps</span>
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => setActiveTrack('sre')}
               className={`neo-btn flex items-center gap-2 px-4 py-2 font-black transition-all ${
                 activeTrack === 'sre'
@@ -62,108 +69,130 @@ export default function RoleCockpit({ activeTrack, setActiveTrack }) {
             >
               <Activity className="h-4 w-4" />
               <span>SRE</span>
-            </button>
+            </motion.button>
           </div>
         </div>
 
         {/* Active Track Highlight Tagline */}
-        <div className="mb-8 border-2 border-black bg-white p-3 font-mono text-xs font-bold text-black shadow-neo-sm flex items-center gap-2">
+        <motion.div
+          key={activeTrack + '-tag'}
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.2 }}
+          className="mb-8 border-2 border-black bg-white p-3 font-mono text-xs font-bold text-black shadow-neo-sm flex items-center gap-2"
+        >
           <span className="bg-[#fdba74] px-2 py-0.5 border border-black uppercase">Active Track</span>
           <span className="text-black font-extrabold">{current.title}:</span>
           <span className="text-gray-700 font-medium">{current.tagline}</span>
-        </div>
+        </motion.div>
 
-        {/* Flagship Project Card */}
-        <div className="neo-card-lg bg-white p-6 sm:p-8 mb-10">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b-2 border-black pb-6 mb-6">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="border-2 border-black bg-[#fde047] px-2.5 py-0.5 font-mono text-xs font-black text-black uppercase shadow-neo-sm">
-                  Flagship Repository
-                </span>
-                <span className="font-mono text-xs font-bold text-gray-600">Production-Grade Architecture</span>
+        {/* Flagship Project Card with AnimatePresence */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current.id}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="neo-card-lg bg-white p-6 sm:p-8 mb-10"
+          >
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b-2 border-black pb-6 mb-6">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="border-2 border-black bg-[#fde047] px-2.5 py-0.5 font-mono text-xs font-black text-black uppercase shadow-neo-sm">
+                    Flagship Repository
+                  </span>
+                  <span className="font-mono text-xs font-bold text-gray-600">Production-Grade Architecture</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-black text-black tracking-tight uppercase">
+                  {current.flagship.title}
+                </h3>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-black text-black tracking-tight uppercase">
-                {current.flagship.title}
-              </h3>
-            </div>
 
-            <div className="flex items-center gap-3">
-              <a
-                href={current.flagship.repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="neo-btn flex items-center gap-2 bg-[#22c55e] px-4 py-2.5 text-xs font-mono font-black text-black uppercase"
-              >
-                <GithubIcon className="h-4 w-4" />
-                <span>View on GitHub</span>
-                <ExternalLink className="h-3.5 w-3.5" />
-              </a>
-            </div>
-          </div>
-
-          <p className="text-base text-gray-900 font-medium leading-relaxed mb-6">
-            {current.flagship.summary}
-          </p>
-
-          {/* Highlights checklist */}
-          <div className="space-y-3 mb-8 bg-[#fcf8f2] p-5 border-2 border-black shadow-neo-sm">
-            <h4 className="font-mono text-xs font-black text-black uppercase tracking-wider mb-2">
-              Key Engineering Highlights:
-            </h4>
-            {current.flagship.highlights.map((highlight, idx) => (
-              <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-900 font-medium">
-                <span className="h-4 w-4 rounded-full bg-[#22c55e] border border-black flex items-center justify-center shrink-0 mt-0.5 text-black font-black text-[10px]">
-                  ✓
-                </span>
-                <span>{highlight}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Architecture Topology Flow */}
-          <div className="border-2 border-black bg-[#faf8f5] p-5 mb-8 shadow-neo-sm">
-            <div className="flex items-center justify-between mb-4 border-b-2 border-black pb-2">
-              <span className="font-mono text-xs font-black text-black uppercase tracking-wider">
-                System Pipeline Topology:
-              </span>
-              <span className="font-mono text-[11px] font-bold text-gray-600">End-to-End Delivery Flow</span>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
-              {current.flagship.architectureNodes.map((node, idx) => (
-                <div
-                  key={idx}
-                  className="neo-card bg-white p-3.5 flex flex-col justify-between"
+              <div className="flex items-center gap-3">
+                <motion.a
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
+                  href={current.flagship.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="neo-btn flex items-center gap-2 bg-[#22c55e] px-4 py-2.5 text-xs font-mono font-black text-black uppercase"
                 >
-                  <div className="font-mono text-xs font-black text-black mb-1 bg-[#fde047] border border-black px-1.5 py-0.5 inline-block w-fit">
-                    {node.step}
-                  </div>
-                  <div className="text-xs font-medium text-gray-800 leading-relaxed mt-2">
-                    {node.desc}
-                  </div>
+                  <GithubIcon className="h-4 w-4" />
+                  <span>View on GitHub</span>
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </motion.a>
+              </div>
+            </div>
+
+            <p className="text-base text-gray-900 font-medium leading-relaxed mb-6">
+              {current.flagship.summary}
+            </p>
+
+            {/* Highlights checklist */}
+            <div className="space-y-3 mb-8 bg-[#fcf8f2] p-5 border-2 border-black shadow-neo-sm">
+              <h4 className="font-mono text-xs font-black text-black uppercase tracking-wider mb-2">
+                Key Engineering Highlights:
+              </h4>
+              {current.flagship.highlights.map((highlight, idx) => (
+                <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-900 font-medium">
+                  <span className="h-4 w-4 rounded-full bg-[#22c55e] border border-black flex items-center justify-center shrink-0 mt-0.5 text-black font-black text-[10px]">
+                    ✓
+                  </span>
+                  <span>{highlight}</span>
                 </div>
               ))}
             </div>
-          </div>
 
-          {/* Tech Stack Pills */}
-          <div>
-            <div className="font-mono text-xs font-black text-black uppercase tracking-wider mb-2.5">
-              Tools &amp; Frameworks:
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {current.flagship.techStack.map((tech, idx) => (
-                <span
-                  key={idx}
-                  className="border-2 border-black bg-white px-3 py-1 font-mono text-xs font-bold text-black shadow-neo-sm"
-                >
-                  {tech}
+            {/* Architecture Topology Flow */}
+            <div className="border-2 border-black bg-[#faf8f5] p-5 mb-8 shadow-neo-sm">
+              <div className="flex items-center justify-between mb-4 border-b-2 border-black pb-2">
+                <span className="font-mono text-xs font-black text-black uppercase tracking-wider">
+                  System Pipeline Topology:
                 </span>
-              ))}
+                <span className="font-mono text-[11px] font-bold text-gray-600">End-to-End Delivery Flow</span>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+                {current.flagship.architectureNodes.map((node, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.05 }}
+                    whileHover={{ y: -3 }}
+                    className="neo-card bg-white p-3.5 flex flex-col justify-between"
+                  >
+                    <div className="font-mono text-xs font-black text-black mb-1 bg-[#fde047] border border-black px-1.5 py-0.5 inline-block w-fit">
+                      {node.step}
+                    </div>
+                    <div className="text-xs font-medium text-gray-800 leading-relaxed mt-2">
+                      {node.desc}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
+
+            {/* Tech Stack Pills */}
+            <div>
+              <div className="font-mono text-xs font-black text-black uppercase tracking-wider mb-2.5">
+                Tools &amp; Frameworks:
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {current.flagship.techStack.map((tech, idx) => (
+                  <motion.span
+                    key={idx}
+                    whileHover={{ scale: 1.05 }}
+                    className="border-2 border-black bg-white px-3 py-1 font-mono text-xs font-bold text-black shadow-neo-sm"
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
 
         {/* Secondary Track Repositories */}
         <div>
@@ -172,8 +201,10 @@ export default function RoleCockpit({ activeTrack, setActiveTrack }) {
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {current.secondaryProjects.map((project, idx) => (
-              <div
+              <motion.div
                 key={idx}
+                whileHover={{ y: -4 }}
+                transition={{ type: 'spring', stiffness: 300 }}
                 className="neo-card bg-white p-5 flex flex-col justify-between"
               >
                 <div>
@@ -206,7 +237,7 @@ export default function RoleCockpit({ activeTrack, setActiveTrack }) {
                     </span>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

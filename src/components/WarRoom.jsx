@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Activity, ShieldAlert, Cpu, Server, Play, RotateCcw, Flame, CheckCircle2, AlertTriangle, ArrowUpRight, Zap } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import confetti from 'canvas-confetti';
+import { Activity, ShieldAlert, Cpu, Server, Play, RotateCcw, Flame, CheckCircle2, AlertTriangle, Zap } from 'lucide-react';
 
 export default function WarRoom() {
   const [trafficRate, setTrafficRate] = useState(142); // req/s
@@ -40,6 +42,7 @@ export default function WarRoom() {
       setLatency(24);
       setClusterState('STEADY_STATE');
       addLog('INFO', 'HEALTH RESTORED: pod/api-gateway-1 successfully running. MTTR: 2.8s.');
+      confetti({ particleCount: 30, spread: 50, origin: { y: 0.6 } });
     }, 2800);
   };
 
@@ -58,6 +61,7 @@ export default function WarRoom() {
       addLog('INFO', 'Canary passed: Promoting v2.1.0 to 100%. Draining legacy v1 replicas.');
       setPods(prev => prev.map(p => p.id === 'api-v2' ? { ...p, status: 'Running', name: 'api-gateway' } : p).filter(p => p.id !== 'api-1'));
       setClusterState('STEADY_STATE');
+      confetti({ particleCount: 45, spread: 70, origin: { y: 0.6 } });
     }, 3000);
   };
 
@@ -90,6 +94,7 @@ export default function WarRoom() {
     setTimeout(() => {
       addLog('INFO', 'CAPACITY STABILIZED: Load rebalanced across 3 availability zones.');
       setClusterState('STEADY_STATE');
+      confetti({ particleCount: 35, spread: 60, origin: { y: 0.6 } });
     }, 3200);
   };
 
@@ -135,49 +140,51 @@ export default function WarRoom() {
                 <span className="bg-[#86efac] border border-black px-1.5 py-0.2">{clusterState}</span>
               </div>
             </div>
-            <button
+            <motion.button
+              whileHover={{ rotate: 180 }}
+              transition={{ duration: 0.3 }}
               onClick={handleReset}
               className="neo-btn bg-[#fde047] p-3 text-black font-black"
               title="Reset Cluster"
             >
               <RotateCcw className="h-4 w-4" />
-            </button>
+            </motion.button>
           </div>
         </div>
 
         {/* Real-time Telemetry Dials */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="neo-card bg-[#fde047] p-4">
+          <motion.div whileHover={{ y: -3 }} className="neo-card bg-[#fde047] p-4">
             <div className="text-[11px] font-mono font-black text-black uppercase">Ingress Traffic</div>
             <div className="text-2xl sm:text-3xl font-mono font-black text-black mt-1">
               {trafficRate} <span className="text-xs font-normal text-black">req/s</span>
             </div>
             <div className="text-[11px] font-bold text-black mt-1 border-t border-black/40 pt-1">● ALB HTTP 200 OK</div>
-          </div>
+          </motion.div>
 
-          <div className="neo-card bg-[#86efac] p-4">
+          <motion.div whileHover={{ y: -3 }} className="neo-card bg-[#86efac] p-4">
             <div className="text-[11px] font-mono font-black text-black uppercase">p99 Latency</div>
             <div className="text-2xl sm:text-3xl font-mono font-black text-black mt-1">
               {latency} <span className="text-xs font-normal text-black">ms</span>
             </div>
             <div className="text-[11px] font-bold text-black mt-1 border-t border-black/40 pt-1">Target: &lt;50ms</div>
-          </div>
+          </motion.div>
 
-          <div className="neo-card bg-[#93c5fd] p-4">
+          <motion.div whileHover={{ y: -3 }} className="neo-card bg-[#93c5fd] p-4">
             <div className="text-[11px] font-mono font-black text-black uppercase">SLO Availability</div>
             <div className="text-2xl sm:text-3xl font-mono font-black text-black mt-1">
               99.982%
             </div>
             <div className="text-[11px] font-bold text-black mt-1 border-t border-black/40 pt-1">Target: 99.950%</div>
-          </div>
+          </motion.div>
 
-          <div className="neo-card bg-[#fdba74] p-4">
+          <motion.div whileHover={{ y: -3 }} className="neo-card bg-[#fdba74] p-4">
             <div className="text-[11px] font-mono font-black text-black uppercase">Error Budget</div>
             <div className="text-2xl sm:text-3xl font-mono font-black text-black mt-1">
               84.6%
             </div>
             <div className="text-[11px] font-bold text-black mt-1 border-t border-black/40 pt-1">Burn Rate: 0.2x</div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Interactive Incident Playground Controls */}
@@ -190,7 +197,9 @@ export default function WarRoom() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 font-mono text-xs">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={handleChaosKill}
               className="neo-btn flex items-center justify-between gap-2 bg-[#f472b6] p-3 text-black font-black text-left"
             >
@@ -199,9 +208,11 @@ export default function WarRoom() {
                 <div className="text-[10px] text-gray-900 font-bold">Test K8s self-healing</div>
               </div>
               <Play className="h-4 w-4 shrink-0 fill-black" />
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={handleCanaryDeploy}
               className="neo-btn flex items-center justify-between gap-2 bg-[#93c5fd] p-3 text-black font-black text-left"
             >
@@ -210,9 +221,11 @@ export default function WarRoom() {
                 <div className="text-[10px] text-gray-900 font-bold">ArgoCD 20% &rarr; 100% sync</div>
               </div>
               <Play className="h-4 w-4 shrink-0 fill-black" />
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={handleCVEAttack}
               className="neo-btn flex items-center justify-between gap-2 bg-[#86efac] p-3 text-black font-black text-left"
             >
@@ -221,9 +234,11 @@ export default function WarRoom() {
                 <div className="text-[10px] text-gray-900 font-bold">Kyverno policy drop</div>
               </div>
               <Play className="h-4 w-4 shrink-0 fill-black" />
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={handleTrafficSpike}
               className="neo-btn flex items-center justify-between gap-2 bg-[#fde047] p-3 text-black font-black text-left"
             >
@@ -232,7 +247,7 @@ export default function WarRoom() {
                 <div className="text-[10px] text-gray-900 font-bold">Scale replicas 2 &rarr; 4</div>
               </div>
               <Play className="h-4 w-4 shrink-0 fill-black" />
-            </button>
+            </motion.button>
           </div>
         </div>
 
@@ -260,27 +275,34 @@ export default function WarRoom() {
                     </div>
 
                     <div className="space-y-2">
-                      {nodePods.map((p) => (
-                        <div
-                          key={p.id}
-                          className={`border-2 border-black p-2 font-mono text-xs shadow-neo-sm transition-all ${
-                            p.status === 'CrashLoop'
-                              ? 'bg-[#f472b6] text-black font-black'
-                              : p.status.includes('Canary')
-                              ? 'bg-[#93c5fd] text-black font-bold'
-                              : 'bg-[#faf8f5] text-black'
-                          }`}
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="font-bold truncate">{p.name}</span>
-                            <span className="text-[10px] bg-white border border-black px-1 font-bold">{p.cpu}</span>
-                          </div>
-                          <div className="text-[10px] text-gray-800 font-medium mt-1 flex items-center justify-between">
-                            <span>Status: {p.status}</span>
-                            <span>rst: {p.restarts}</span>
-                          </div>
-                        </div>
-                      ))}
+                      <AnimatePresence>
+                        {nodePods.map((p) => (
+                          <motion.div
+                            key={p.id}
+                            layout
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.8, opacity: 0 }}
+                            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                            className={`border-2 border-black p-2 font-mono text-xs shadow-neo-sm transition-all ${
+                              p.status === 'CrashLoop'
+                                ? 'bg-[#f472b6] text-black font-black'
+                                : p.status.includes('Canary')
+                                ? 'bg-[#93c5fd] text-black font-bold'
+                                : 'bg-[#faf8f5] text-black'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <span className="font-bold truncate">{p.name}</span>
+                              <span className="text-[10px] bg-white border border-black px-1 font-bold">{p.cpu}</span>
+                            </div>
+                            <div className="text-[10px] text-gray-800 font-medium mt-1 flex items-center justify-between">
+                              <span>Status: {p.status}</span>
+                              <span>rst: {p.restarts}</span>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </AnimatePresence>
                     </div>
                   </div>
                 );
@@ -303,7 +325,12 @@ export default function WarRoom() {
 
               <div className="flex-1 overflow-y-auto space-y-2 text-[11px] leading-relaxed max-h-72">
                 {eventLogs.map((log, lidx) => (
-                  <div key={lidx} className="flex items-start gap-1.5 border-l-2 border-black pl-2 py-0.5">
+                  <motion.div
+                    key={lidx}
+                    initial={{ opacity: 0, x: -5 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="flex items-start gap-1.5 border-l-2 border-black pl-2 py-0.5"
+                  >
                     <span className="text-gray-500 font-bold shrink-0">{log.time}</span>
                     <span className={`shrink-0 font-black px-1 border border-black text-[10px] ${
                       log.level === 'CRITICAL' || log.level === 'ALERT' ? 'bg-[#f472b6] text-black' :
@@ -312,7 +339,7 @@ export default function WarRoom() {
                       {log.level}
                     </span>
                     <span className="text-black font-medium break-words">{log.msg}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>

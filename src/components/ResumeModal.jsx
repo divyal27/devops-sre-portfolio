@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import confetti from 'canvas-confetti';
 import { portfolioData } from '../data/portfolioData';
 import { Printer, X, FileText } from 'lucide-react';
 
@@ -8,7 +9,14 @@ export default function ResumeModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   const handlePrint = () => {
-    window.print();
+    confetti({
+      particleCount: 60,
+      spread: 70,
+      origin: { y: 0.4 }
+    });
+    setTimeout(() => {
+      window.print();
+    }, 200);
   };
 
   return (
