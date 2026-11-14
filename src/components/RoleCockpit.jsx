@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
-import { Terminal, ShieldCheck, Activity, ExternalLink, Layers } from 'lucide-react';
+import { Terminal, ShieldCheck, Activity, ExternalLink, Layers, SearchCode } from 'lucide-react';
 import { GithubIcon } from './Icons';
+import { soundManager } from '../utils/soundEffects';
 
-export default function RoleCockpit({ activeTrack, setActiveTrack }) {
+export default function RoleCockpit({ activeTrack, setActiveTrack, onSelectProject }) {
   const { roleTracks } = portfolioData;
   const current = roleTracks[activeTrack];
 
@@ -109,17 +110,31 @@ export default function RoleCockpit({ activeTrack, setActiveTrack }) {
                 </h3>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
+                <motion.button
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
+                  onClick={() => {
+                    soundManager.playClick();
+                    onSelectProject(current.flagship);
+                  }}
+                  className="neo-btn flex items-center gap-1.5 bg-[#fde047] px-4 py-2.5 text-xs font-mono font-black text-black uppercase shadow-neo-sm"
+                >
+                  <SearchCode className="h-4 w-4" />
+                  <span>Inspect Failure &amp; FinOps Spec</span>
+                </motion.button>
+
                 <motion.a
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.96 }}
                   href={current.flagship.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => soundManager.playSuccess()}
                   className="neo-btn flex items-center gap-2 bg-[#22c55e] px-4 py-2.5 text-xs font-mono font-black text-black uppercase"
                 >
                   <GithubIcon className="h-4 w-4" />
-                  <span>View on GitHub</span>
+                  <span>GitHub</span>
                   <ExternalLink className="h-3.5 w-3.5" />
                 </motion.a>
               </div>
@@ -209,7 +224,13 @@ export default function RoleCockpit({ activeTrack, setActiveTrack }) {
               >
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-2">
-                    <h5 className="font-black text-black text-base uppercase">
+                    <h5
+                      onClick={() => {
+                        soundManager.playClick();
+                        onSelectProject(project);
+                      }}
+                      className="font-black text-black text-base uppercase hover:underline cursor-pointer"
+                    >
                       {project.title}
                     </h5>
                     <a
