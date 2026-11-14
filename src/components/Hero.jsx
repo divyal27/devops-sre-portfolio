@@ -2,7 +2,7 @@ import React from 'react';
 import { portfolioData } from '../data/portfolioData';
 import { ArrowDown, Terminal, Shield, Cpu, Activity, ExternalLink } from 'lucide-react';
 
-export default function Hero({ onOpenTerminal }) {
+export default function Hero({ onOpenTerminal, onOpenResume }) {
   const { profile, telemetryMetrics } = portfolioData;
 
   return (
@@ -28,31 +28,28 @@ export default function Hero({ onOpenTerminal }) {
 
             {/* Quick Action Buttons */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
-              <a
-                href="#cockpit"
+              <button
+                onClick={onOpenResume}
                 className="flex items-center gap-2 rounded bg-console-green px-4 py-2 text-xs font-mono font-medium text-graphite-950 hover:bg-emerald-400 transition-colors shadow-subtle"
               >
-                <span>EXPLORE 3-ROLE COCKPIT</span>
+                <span>DOWNLOAD ATS RESUME</span>
                 <ArrowDown className="h-3.5 w-3.5" />
+              </button>
+
+              <a
+                href="#cockpit"
+                className="flex items-center gap-2 rounded border border-graphite-700 bg-graphite-900 px-4 py-2 text-xs font-mono text-graphite-200 hover:border-graphite-500 hover:text-white transition-colors"
+              >
+                <span>EXPLORE 3-ROLE TRACKS</span>
               </a>
 
               <button
                 onClick={onOpenTerminal}
-                className="flex items-center gap-2 rounded border border-graphite-700 bg-graphite-900 px-4 py-2 text-xs font-mono text-graphite-200 hover:border-graphite-500 hover:text-white transition-colors"
+                className="flex items-center gap-2 rounded border border-graphite-800 bg-graphite-950 px-3.5 py-2 text-xs font-mono text-graphite-300 hover:border-graphite-600 hover:text-white transition-colors"
               >
                 <Terminal className="h-3.5 w-3.5 text-console-green" />
-                <span>LAUNCH SIMULATOR CLI</span>
+                <span>CLI Console</span>
               </button>
-
-              <a
-                href={profile.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 rounded border border-graphite-800 bg-graphite-950 px-3.5 py-2 text-xs font-mono text-graphite-400 hover:text-white hover:border-graphite-600 transition-colors"
-              >
-                <span>GitHub Repos</span>
-                <ExternalLink className="h-3 w-3" />
-              </a>
             </div>
           </div>
 

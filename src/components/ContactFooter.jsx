@@ -3,7 +3,7 @@ import { portfolioData } from '../data/portfolioData';
 import { Mail, Phone, MapPin, Copy, Check, ExternalLink, Globe } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
-export default function ContactFooter() {
+export default function ContactFooter({ onOpenResume }) {
   const { profile } = portfolioData;
   const [copied, setCopied] = useState(false);
 
@@ -49,6 +49,13 @@ export default function ContactFooter() {
               >
                 {copied ? <Check className="h-4 w-4 text-console-green" /> : <Copy className="h-4 w-4 text-graphite-400" />}
                 <span>{copied ? 'EMAIL COPIED TO CLIPBOARD' : `COPY ${profile.email}`}</span>
+              </button>
+
+              <button
+                onClick={onOpenResume}
+                className="flex items-center justify-center gap-2 rounded-lg border border-console-green/40 bg-console-green/10 px-5 py-3 text-xs font-mono font-medium text-console-green hover:bg-console-green hover:text-graphite-950 transition-colors"
+              >
+                <span>VIEW 1-PAGE ATS RESUME</span>
               </button>
             </div>
 
