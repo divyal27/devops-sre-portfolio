@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { portfolioData } from '../data/portfolioData';
-import { Download, Printer, X, Check, FileText } from 'lucide-react';
+import { Printer, X, FileText } from 'lucide-react';
 
 export default function ResumeModal({ isOpen, onClose }) {
   const { profile, experience, education, certifications, skills } = portfolioData;
-  const [downloaded, setDownloaded] = useState(false);
 
   if (!isOpen) return null;
 
@@ -13,14 +12,14 @@ export default function ResumeModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 overflow-y-auto">
-      <div className="w-full max-w-4xl rounded-xl border border-graphite-700 bg-graphite-900 shadow-2xl overflow-hidden my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto">
+      <div className="w-full max-w-4xl border-3 border-black bg-white shadow-neo-xl overflow-hidden my-8">
         
         {/* Modal Action Bar (Hidden on print) */}
-        <div className="print:hidden flex items-center justify-between border-b border-graphite-800 bg-graphite-950 px-5 py-3">
+        <div className="print:hidden flex items-center justify-between border-b-2 border-black bg-[#fde047] px-5 py-3">
           <div className="flex items-center gap-2">
-            <FileText className="h-4 w-4 text-console-green" />
-            <span className="font-mono text-xs font-semibold text-white">
+            <FileText className="h-4 w-4 text-black" />
+            <span className="font-mono text-xs font-black text-black uppercase">
               UNIVERSAL 1-PAGE ATS RESUME • DEVOPS / DEVSECOPS / SRE
             </span>
           </div>
@@ -28,14 +27,14 @@ export default function ResumeModal({ isOpen, onClose }) {
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrint}
-              className="flex items-center gap-1.5 rounded bg-console-green px-3 py-1.5 text-xs font-mono font-medium text-graphite-950 hover:bg-emerald-400 transition-colors"
+              className="neo-btn flex items-center gap-1.5 bg-[#22c55e] px-3.5 py-1.5 text-xs font-mono font-black text-black uppercase"
             >
-              <Printer className="h-3.5 w-3.5" />
+              <Printer className="h-4 w-4" />
               <span>Print / Save as PDF</span>
             </button>
             <button
               onClick={onClose}
-              className="rounded p-1 text-graphite-400 hover:text-white transition-colors"
+              className="border-2 border-black bg-white p-1 text-black hover:bg-black hover:text-white transition-colors"
             >
               <X className="h-5 w-5" />
             </button>

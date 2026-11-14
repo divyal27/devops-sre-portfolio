@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { portfolioData } from '../data/portfolioData';
-import { Mail, Phone, MapPin, Copy, Check, ExternalLink, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin, Copy, Check, ExternalLink } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 export default function ContactFooter({ onOpenResume }) {
@@ -14,30 +14,30 @@ export default function ContactFooter({ onOpenResume }) {
   };
 
   return (
-    <footer id="contact" className="bg-graphite-950 pt-16 pb-12 px-4 sm:px-6">
+    <footer id="contact" className="bg-[#fcf8f2] pt-16 pb-12 px-4 sm:px-6 border-t-2 border-black neo-grid">
       <div className="mx-auto max-w-7xl">
         
         {/* Contact CTA Card */}
-        <div className="rounded-2xl border border-graphite-800 bg-graphite-900/60 p-8 sm:p-10 mb-12 shadow-elevated">
+        <div className="neo-card-lg bg-white p-8 sm:p-10 mb-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 font-mono text-xs text-console-green mb-2">
-                <Mail className="h-3.5 w-3.5" />
+              <div className="inline-flex items-center gap-2 border-2 border-black bg-[#86efac] px-3.5 py-1 font-mono text-xs font-black text-black shadow-neo-sm mb-3">
+                <Mail className="h-4 w-4" />
                 <span>LET'S CONNECT</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-3">
+              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-black uppercase mb-3">
                 Looking for a DevOps, DevSecOps or SRE Engineer?
               </h2>
-              <p className="text-sm text-graphite-300 leading-relaxed max-w-xl">
+              <p className="text-base font-medium text-gray-800 leading-relaxed max-w-xl">
                 I am actively seeking fresher and internship opportunities where I can apply my experience in automated infrastructure, secure delivery pipelines, and production observability.
               </p>
             </div>
 
-            <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-3">
+            <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-3 font-mono text-xs">
               <a
                 href={`mailto:${profile.email}`}
-                className="flex items-center justify-center gap-2 rounded-lg bg-console-green px-5 py-3 text-xs font-mono font-medium text-graphite-950 hover:bg-emerald-400 transition-colors shadow-subtle"
+                className="neo-btn flex items-center justify-center gap-2 bg-[#22c55e] p-3.5 font-black text-black uppercase text-center"
               >
                 <Mail className="h-4 w-4" />
                 <span>SEND DIRECT EMAIL</span>
@@ -45,15 +45,15 @@ export default function ContactFooter({ onOpenResume }) {
 
               <button
                 onClick={handleCopyEmail}
-                className="flex items-center justify-center gap-2 rounded-lg border border-graphite-700 bg-graphite-850 px-5 py-3 text-xs font-mono text-graphite-200 hover:text-white hover:border-graphite-500 transition-colors"
+                className="neo-btn flex items-center justify-center gap-2 bg-[#fde047] p-3.5 font-bold text-black uppercase text-center"
               >
-                {copied ? <Check className="h-4 w-4 text-console-green" /> : <Copy className="h-4 w-4 text-graphite-400" />}
+                {copied ? <Check className="h-4 w-4 text-black" /> : <Copy className="h-4 w-4 text-black" />}
                 <span>{copied ? 'EMAIL COPIED TO CLIPBOARD' : `COPY ${profile.email}`}</span>
               </button>
 
               <button
                 onClick={onOpenResume}
-                className="flex items-center justify-center gap-2 rounded-lg border border-console-green/40 bg-console-green/10 px-5 py-3 text-xs font-mono font-medium text-console-green hover:bg-console-green hover:text-graphite-950 transition-colors"
+                className="neo-btn flex items-center justify-center gap-2 bg-[#93c5fd] p-3.5 font-black text-black uppercase text-center"
               >
                 <span>VIEW 1-PAGE ATS RESUME</span>
               </button>
@@ -62,34 +62,34 @@ export default function ContactFooter({ onOpenResume }) {
           </div>
 
           {/* Quick Contact Info Strip */}
-          <div className="mt-8 pt-8 border-t border-graphite-800/80 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 font-mono text-xs text-graphite-400">
-            <div className="flex items-center gap-2">
-              <Mail className="h-4 w-4 text-console-green shrink-0" />
-              <a href={`mailto:${profile.email}`} className="hover:text-white transition-colors truncate">
+          <div className="mt-8 pt-8 border-t-2 border-black grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 font-mono text-xs font-bold text-black">
+            <div className="flex items-center gap-2 bg-[#faf8f5] p-2.5 border border-black shadow-neo-sm">
+              <Mail className="h-4 w-4 text-black shrink-0" />
+              <a href={`mailto:${profile.email}`} className="underline truncate">
                 {profile.email}
               </a>
             </div>
 
-            <div className="flex items-center gap-2">
-              <Phone className="h-4 w-4 text-console-green shrink-0" />
-              <a href={`tel:${profile.phone}`} className="hover:text-white transition-colors">
+            <div className="flex items-center gap-2 bg-[#faf8f5] p-2.5 border border-black shadow-neo-sm">
+              <Phone className="h-4 w-4 text-black shrink-0" />
+              <a href={`tel:${profile.phone}`} className="underline">
                 {profile.phone}
               </a>
             </div>
 
-            <div className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-console-green shrink-0" />
+            <div className="flex items-center gap-2 bg-[#faf8f5] p-2.5 border border-black shadow-neo-sm">
+              <MapPin className="h-4 w-4 text-black shrink-0" />
               <span>{profile.location}</span>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 bg-[#faf8f5] p-2.5 border border-black shadow-neo-sm justify-around">
               <a
                 href={profile.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 hover:text-white transition-colors"
+                className="flex items-center gap-1 hover:text-[#2563eb]"
               >
-                <GithubIcon className="h-3.5 w-3.5" />
+                <GithubIcon className="h-4 w-4" />
                 <span>GitHub</span>
               </a>
 
@@ -97,24 +97,24 @@ export default function ContactFooter({ onOpenResume }) {
                 href={profile.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 hover:text-white transition-colors"
+                className="flex items-center gap-1 hover:text-[#2563eb]"
               >
-                <LinkedinIcon className="h-3.5 w-3.5" />
+                <LinkedinIcon className="h-4 w-4" />
                 <span>LinkedIn</span>
               </a>
             </div>
           </div>
         </div>
 
-        {/* Bottom Credits & Vercel DevOps Badge */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-graphite-500 border-t border-graphite-800/40 pt-8">
+        {/* Bottom Credits & Vercel Badge */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs font-bold text-black border-t-2 border-black pt-6">
           <div>
             © {new Date().getFullYear()} {profile.name}. All rights reserved.
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-console-green"></span>
-            <span>Deployed on Vercel Edge • Automated GitOps CI/CD</span>
+          <div className="flex items-center gap-2 bg-[#fde047] border border-black px-2.5 py-1 shadow-neo-sm">
+            <span className="h-2 w-2 rounded-full bg-[#22c55e] border border-black"></span>
+            <span>DEPLOYED ON VERCEL EDGE • CONTINUOUS GITOPS CI/CD</span>
           </div>
         </div>
 

@@ -9,20 +9,15 @@ export default function Header({
   onOpenResume
 }) {
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-graphite-800/80 bg-graphite-950/95 backdrop-blur-md">
-      {/* Top telemetry status ribbon */}
-      <div className="border-b border-graphite-800/40 bg-graphite-900/60 px-4 py-1.5 text-xs">
+    <header className="sticky top-0 z-40 w-full border-b-2 border-black bg-[#fcf8f2] backdrop-blur-md">
+      {/* Top neo-brutalist status ribbon */}
+      <div className="border-b-2 border-black bg-[#fde047] px-4 py-1.5 text-xs font-mono font-bold text-black">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-console-green opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-console-green"></span>
-            </span>
-            <span className="font-mono text-[11px] text-graphite-300">
-              CLUSTER: <span className="text-console-green">HEALTHY</span> • 3 NODES AP-SOUTH-1 (EKS 1.30)
-            </span>
+            <span className="h-2.5 w-2.5 rounded-full bg-[#22c55e] border border-black animate-pulse"></span>
+            <span>CLUSTER STATUS: HEALTHY • 3 NODES ONLINE [AWS EKS 1.30]</span>
           </div>
-          <div className="hidden font-mono text-[11px] text-graphite-400 sm:block">
+          <div className="hidden sm:block uppercase tracking-wider">
             DIVYAL PADALKAR • DEVOPS / DEVSECOPS / SRE • PUNE, IN
           </div>
         </div>
@@ -31,50 +26,52 @@ export default function Header({
       {/* Main navigation bar */}
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
         
-        {/* Left: Name and Dual Cockpit Selector */}
+        {/* Left: Hostname & Dual Cockpit Selector */}
         <div className="flex items-center gap-4">
-          <a href="#" className="flex items-center gap-2 font-mono text-sm font-semibold tracking-tight text-white hover:text-console-green transition-colors">
-            <span className="text-console-green font-bold">&gt;</span>
-            <span>divyal.padalkar</span>
+          <a href="#" className="flex items-center gap-2 font-mono text-sm font-extrabold tracking-tight text-black hover:text-[#2563eb] transition-colors">
+            <span className="bg-[#86efac] border-2 border-black px-1.5 py-0.5 text-black shadow-neo-sm">
+              &gt;_
+            </span>
+            <span className="text-base">divyal.padalkar</span>
           </a>
 
           {/* DUAL COCKPIT MODE SELECTOR */}
-          <div className="hidden md:flex items-center rounded-lg border border-graphite-800 bg-graphite-900/90 p-0.5 font-mono text-xs">
+          <div className="hidden md:flex items-center gap-1.5 font-mono text-xs">
             <button
               onClick={() => setViewMode('spec')}
-              className={`flex items-center gap-1.5 rounded px-2.5 py-1 transition-all ${
+              className={`flex items-center gap-1.5 rounded-none px-3 py-1.5 border-2 border-black font-bold transition-all ${
                 viewMode === 'spec'
-                  ? 'bg-graphite-800 text-white font-medium shadow-sm border border-graphite-700'
-                  : 'text-graphite-400 hover:text-white'
+                  ? 'bg-[#93c5fd] shadow-neo translate-x-[-1px] translate-y-[-1px]'
+                  : 'bg-white hover:bg-gray-100 shadow-neo-sm'
               }`}
             >
-              <Layers className="h-3 w-3 text-blue-400" />
+              <Layers className="h-3.5 w-3.5 text-black" />
               <span>Spec Cockpit</span>
             </button>
 
             <button
               onClick={() => setViewMode('warroom')}
-              className={`flex items-center gap-1.5 rounded px-2.5 py-1 transition-all ${
+              className={`flex items-center gap-1.5 rounded-none px-3 py-1.5 border-2 border-black font-bold transition-all ${
                 viewMode === 'warroom'
-                  ? 'bg-graphite-800 text-white font-medium shadow-sm border border-graphite-700'
-                  : 'text-graphite-400 hover:text-white'
+                  ? 'bg-[#86efac] shadow-neo translate-x-[-1px] translate-y-[-1px]'
+                  : 'bg-white hover:bg-gray-100 shadow-neo-sm'
               }`}
             >
-              <Activity className="h-3 w-3 text-console-green" />
-              <span>Cluster War Room (NOC)</span>
+              <Activity className="h-3.5 w-3.5 text-black" />
+              <span>Cluster War Room</span>
             </button>
           </div>
         </div>
 
         {/* Right Action Buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           
           {/* Download 1-Page ATS Resume */}
           <button
             onClick={onOpenResume}
-            className="flex items-center gap-1.5 rounded border border-console-green/40 bg-console-green/10 px-3 py-1.2 text-xs font-mono font-medium text-console-green hover:bg-console-green hover:text-graphite-950 transition-colors"
+            className="neo-btn flex items-center gap-1.5 bg-[#86efac] px-3.5 py-1.5 font-mono text-xs font-bold text-black"
           >
-            <FileDown className="h-3.5 w-3.5" />
+            <FileDown className="h-4 w-4" />
             <span className="hidden sm:inline">ATS Resume</span>
             <span className="sm:hidden">Resume</span>
           </button>
@@ -82,10 +79,10 @@ export default function Header({
           {/* Interactive Terminal Trigger */}
           <button
             onClick={onOpenTerminal}
-            className="flex items-center gap-1.5 rounded border border-graphite-700 bg-graphite-900/80 px-2.5 py-1 text-xs font-mono text-graphite-200 hover:border-console-green/60 hover:text-console-green transition-colors"
+            className="neo-btn flex items-center gap-1.5 bg-[#fde047] px-3 py-1.5 font-mono text-xs font-bold text-black"
             title="Open Interactive DevOps CLI"
           >
-            <Terminal className="h-3.5 w-3.5" />
+            <Terminal className="h-4 w-4" />
             <span className="hidden sm:inline">CLI</span>
           </button>
 
@@ -93,7 +90,7 @@ export default function Header({
             href="https://github.com/divyal27"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded border border-graphite-800 p-1.5 text-graphite-400 hover:border-graphite-600 hover:text-white transition-colors"
+            className="neo-btn bg-white p-1.5 text-black"
             aria-label="GitHub Profile"
           >
             <GithubIcon className="h-4 w-4" />
@@ -103,7 +100,7 @@ export default function Header({
             href="https://www.linkedin.com/in/divyal-padalkar2704/"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded border border-graphite-800 p-1.5 text-graphite-400 hover:border-graphite-600 hover:text-white transition-colors"
+            className="neo-btn bg-white p-1.5 text-black"
             aria-label="LinkedIn Profile"
           >
             <LinkedinIcon className="h-4 w-4" />
@@ -112,24 +109,24 @@ export default function Header({
       </div>
 
       {/* Mobile Dual Cockpit Switcher Tab */}
-      <div className="flex md:hidden border-t border-graphite-800 bg-graphite-900/90 font-mono text-xs">
+      <div className="flex md:hidden border-t-2 border-black bg-white font-mono text-xs font-bold">
         <button
           onClick={() => setViewMode('spec')}
-          className={`flex-1 py-2 text-center flex items-center justify-center gap-1.5 ${
-            viewMode === 'spec' ? 'text-white border-b-2 border-console-green bg-graphite-850' : 'text-graphite-400'
+          className={`flex-1 py-2.5 text-center flex items-center justify-center gap-1.5 border-r-2 border-black ${
+            viewMode === 'spec' ? 'bg-[#93c5fd]' : 'bg-white'
           }`}
         >
-          <Layers className="h-3 w-3 text-blue-400" />
+          <Layers className="h-3.5 w-3.5 text-black" />
           <span>Spec Cockpit</span>
         </button>
         <button
           onClick={() => setViewMode('warroom')}
-          className={`flex-1 py-2 text-center flex items-center justify-center gap-1.5 ${
-            viewMode === 'warroom' ? 'text-white border-b-2 border-console-green bg-graphite-850' : 'text-graphite-400'
+          className={`flex-1 py-2.5 text-center flex items-center justify-center gap-1.5 ${
+            viewMode === 'warroom' ? 'bg-[#86efac]' : 'bg-white'
           }`}
         >
-          <Activity className="h-3 w-3 text-console-green" />
-          <span>Cluster War Room (NOC)</span>
+          <Activity className="h-3.5 w-3.5 text-black" />
+          <span>War Room (NOC)</span>
         </button>
       </div>
     </header>

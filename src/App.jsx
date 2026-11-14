@@ -29,7 +29,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-graphite-950 text-graphite-200">
+    <div className="min-h-screen bg-[#fcf8f2] text-black">
       <Header
         viewMode={viewMode}
         setViewMode={setViewMode}
@@ -43,11 +43,11 @@ export default function App() {
             {/* Live Operations Center / Cluster War Room */}
             <WarRoom />
             {/* Contextual link to return to spec */}
-            <div className="bg-graphite-900 border-b border-graphite-800 py-4 px-4 text-center font-mono text-xs">
-              <span className="text-graphite-400">Want to inspect the raw architecture and code specifications? </span>
+            <div className="bg-[#fde047] border-b-2 border-black py-4 px-4 text-center font-mono text-xs font-bold text-black">
+              <span>Want to inspect the raw architecture and code specifications? </span>
               <button
                 onClick={() => setViewMode('spec')}
-                className="text-console-green underline hover:text-emerald-400 ml-1 font-semibold"
+                className="underline bg-white border border-black px-2 py-0.5 ml-1.5 shadow-neo-sm hover:bg-black hover:text-white transition-colors"
               >
                 Switch to Spec Cockpit &rarr;
               </button>
@@ -62,20 +62,20 @@ export default function App() {
             <RoleCockpit activeTrack={activeTrack} setActiveTrack={setActiveTrack} />
             
             {/* Teaser section to explore War Room */}
-            <div className="border-b border-graphite-800 bg-graphite-900/40 py-8 px-4 text-center">
-              <div className="mx-auto max-w-2xl">
-                <span className="rounded bg-graphite-800 px-2.5 py-1 font-mono text-[11px] text-console-green uppercase tracking-wider">
+            <div className="border-b-2 border-black bg-[#fde047] py-10 px-4 text-center neo-grid">
+              <div className="mx-auto max-w-2xl neo-card-lg bg-white p-6 sm:p-8">
+                <span className="border-2 border-black bg-[#86efac] px-3 py-1 font-mono text-xs font-black text-black uppercase tracking-wider shadow-neo-sm">
                   Interactive Simulation
                 </span>
-                <h3 className="text-lg font-bold text-white mt-2 mb-1">
+                <h3 className="text-2xl font-black text-black uppercase mt-3 mb-1">
                   Experience the Cluster Operations Center
                 </h3>
-                <p className="text-xs text-graphite-400 mb-4">
+                <p className="text-xs sm:text-sm font-medium text-gray-800 mb-6 max-w-lg mx-auto">
                   Run live chaos experiments, trigger zero-downtime canary rollouts, and test security admission controls on our simulated AWS EKS cluster.
                 </p>
                 <button
                   onClick={() => setViewMode('warroom')}
-                  className="rounded-lg border border-graphite-700 bg-graphite-850 px-4 py-2 font-mono text-xs text-white hover:border-console-green/80 hover:text-console-green transition-colors"
+                  className="neo-btn bg-[#fde047] px-6 py-3 font-mono text-xs font-black text-black uppercase"
                 >
                   🕹️ Launch Cluster War Room (NOC Mode)
                 </button>

@@ -4,39 +4,34 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        graphite: {
-          950: '#090a0c',
-          900: '#111215',
-          850: '#16181c',
-          800: '#1e2126',
-          700: '#2b2f36',
-          600: '#3e434d',
-          500: '#5c6370',
-          400: '#8b94a5',
-          300: '#c2c9d6',
-          200: '#e2e6ed',
-          100: '#f4f6f9',
-        },
-        console: {
-          green: '#10b981',
-          emerald: '#059669',
-          amber: '#f59e0b',
-          blue: '#3b82f6',
-          cyan: '#06b6d4',
-          red: '#ef4444',
+        neo: {
+          bg: '#fcf8f2',
+          yellow: '#fde047',
+          yellowDark: '#eab308',
+          green: '#86efac',
+          greenDark: '#22c55e',
+          blue: '#93c5fd',
+          blueDark: '#3b82f6',
+          pink: '#f472b6',
+          orange: '#fdba74',
+          purple: '#c084fc',
+          card: '#ffffff',
+          darkBg: '#121212',
+          darkCard: '#1e1e1e',
         }
       },
       fontFamily: {
         sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', 'monospace'],
+        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       boxShadow: {
-        'subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.4)',
-        'elevated': '0 4px 20px -2px rgba(0, 0, 0, 0.6)',
+        'neo-sm': '2px 2px 0px 0px #000000',
+        'neo': '4px 4px 0px 0px #000000',
+        'neo-lg': '6px 6px 0px 0px #000000',
+        'neo-xl': '8px 8px 0px 0px #000000',
       }
     },
   },

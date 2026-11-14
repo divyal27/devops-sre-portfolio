@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { portfolioData } from '../data/portfolioData';
-import { Terminal as TerminalIcon, X, Maximize2, Minimize2 } from 'lucide-react';
+import { Terminal as TerminalIcon, X } from 'lucide-react';
 
 export default function TerminalModal({ isOpen, onClose }) {
   const [input, setInput] = useState('');
@@ -128,46 +128,48 @@ production     security-gate-agent-77b8f-m4qpx    1/1     Running   0          1
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-      <div className="w-full max-w-3xl rounded-xl border border-graphite-700 bg-graphite-950 shadow-2xl overflow-hidden font-mono text-xs flex flex-col h-[520px]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+      <div className="w-full max-w-3xl border-3 border-black bg-black shadow-neo-xl overflow-hidden font-mono text-xs flex flex-col h-[520px]">
         
-        {/* Terminal Titlebar */}
-        <div className="flex items-center justify-between border-b border-graphite-800 bg-graphite-900 px-4 py-2.5">
+        {/* Terminal Titlebar (Neo-Brutalist Yellow) */}
+        <div className="flex items-center justify-between border-b-2 border-black bg-[#fde047] px-4 py-3">
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1.5">
-              <button onClick={onClose} className="h-3 w-3 rounded-full bg-red-500/80 hover:bg-red-500 transition-colors" />
-              <div className="h-3 w-3 rounded-full bg-amber-500/80" />
-              <div className="h-3 w-3 rounded-full bg-emerald-500/80" />
+              <button onClick={onClose} className="h-3.5 w-3.5 rounded-full bg-[#f43f5e] border border-black" />
+              <div className="h-3.5 w-3.5 rounded-full bg-[#fde047] border border-black" />
+              <div className="h-3.5 w-3.5 rounded-full bg-[#22c55e] border border-black" />
             </div>
-            <div className="ml-2 flex items-center gap-1.5 text-graphite-300 font-semibold text-[11px]">
-              <TerminalIcon className="h-3.5 w-3.5 text-console-green" />
+            <div className="ml-2 flex items-center gap-1.5 text-black font-black text-xs">
+              <TerminalIcon className="h-4 w-4" />
               <span>ops-shell ~ divyal@aws-eks-prod</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-graphite-400">
-            <span className="text-[10px] bg-graphite-800 px-1.5 py-0.5 rounded">bash</span>
-            <button onClick={onClose} className="hover:text-white transition-colors">
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] bg-white border border-black px-2 py-0.5 font-bold text-black shadow-neo-sm">
+              bash
+            </span>
+            <button onClick={onClose} className="p-1 hover:bg-black hover:text-white transition-colors border border-black bg-white">
               <X className="h-4 w-4" />
             </button>
           </div>
         </div>
 
         {/* Terminal Output Area */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-3 leading-relaxed text-graphite-300 bg-graphite-950">
+        <div className="flex-1 overflow-y-auto p-4 space-y-3 leading-relaxed text-[#22c55e] bg-black">
           {history.map((item, idx) => (
             <div key={idx}>
               {item.type === 'system' && (
-                <div className="text-graphite-500">{item.text}</div>
+                <div className="text-gray-400 font-bold">{item.text}</div>
               )}
               {item.type === 'prompt' && (
                 <div>
-                  <div className="flex items-center gap-2 text-white">
-                    <span className="text-console-green font-bold">ops@cluster:~$</span>
+                  <div className="flex items-center gap-2 text-white font-bold">
+                    <span className="text-[#fde047]">ops@cluster:~$</span>
                     <span>{item.text}</span>
                   </div>
                   {item.output && (
-                    <pre className="mt-1 whitespace-pre-wrap text-graphite-300 font-mono pl-4 border-l border-graphite-800/80">
+                    <pre className="mt-1 whitespace-pre-wrap text-[#86efac] font-mono pl-3 border-l-2 border-[#22c55e]">
                       {item.output}
                     </pre>
                   )}
@@ -179,8 +181,8 @@ production     security-gate-agent-77b8f-m4qpx    1/1     Running   0          1
         </div>
 
         {/* Terminal Input Line */}
-        <div className="border-t border-graphite-800 bg-graphite-900/90 px-4 py-3 flex items-center gap-2">
-          <span className="text-console-green font-bold text-xs">ops@cluster:~$</span>
+        <div className="border-t-2 border-black bg-[#1e1e1e] px-4 py-3 flex items-center gap-2">
+          <span className="text-[#fde047] font-black text-xs">ops@cluster:~$</span>
           <input
             ref={inputRef}
             type="text"
@@ -188,7 +190,7 @@ production     security-gate-agent-77b8f-m4qpx    1/1     Running   0          1
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleCommand}
             placeholder="Type 'help', 'kubectl get pods', 'cat resume.json'..."
-            className="flex-1 bg-transparent text-white font-mono text-xs focus:outline-none placeholder:text-graphite-600"
+            className="flex-1 bg-transparent text-white font-mono text-xs focus:outline-none placeholder:text-gray-500 font-bold"
           />
         </div>
 

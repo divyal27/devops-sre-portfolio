@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Activity, ShieldAlert, Cpu, Server, Play, RotateCcw, Flame, CheckCircle2, AlertTriangle, ArrowUpRight, Zap } from 'lucide-react';
 
 export default function WarRoom() {
   const [trafficRate, setTrafficRate] = useState(142); // req/s
   const [latency, setLatency] = useState(24); // ms
-  const [clusterState, setClusterState] = useState('STEADY_STATE'); // STEADY_STATE, CHAOS_RECOVERING, CANARY_ROLLOUT, ATTACK_BLOCKED, HPA_SCALING
+  const [clusterState, setClusterState] = useState('STEADY_STATE');
   const [eventLogs, setEventLogs] = useState([
     { time: '19:42:01', level: 'INFO', msg: 'Cluster ap-south-1 healthy. 3/3 worker nodes ready.' },
     { time: '19:42:15', level: 'INFO', msg: 'ArgoCD sync check: git commit 8e42f9b reconciled.' },
@@ -25,12 +25,9 @@ export default function WarRoom() {
     setEventLogs(prev => [{ time, level, msg }, ...prev.slice(0, 14)]);
   };
 
-  // Chaos: Kill Random Pod
   const handleChaosKill = () => {
     setClusterState('CHAOS_RECOVERING');
     addLog('WARN', 'CHAOS INJECTION: SIGKILL delivered to pod/api-gateway-1.');
-    
-    // Pod fails
     setPods(prev => prev.map(p => p.id === 'api-1' ? { ...p, status: 'CrashLoop', restarts: p.restarts + 1 } : p));
     setLatency(82);
 
@@ -46,11 +43,9 @@ export default function WarRoom() {
     }, 2800);
   };
 
-  // GitOps Canary Release
   const handleCanaryDeploy = () => {
     setClusterState('CANARY_ROLLOUT');
     addLog('INFO', 'GITOPS EVENT: ArgoCD detected commit "release-v2.1.0". Initiating Canary rollout.');
-
     const canaryPod = { id: 'api-v2', name: 'api-gateway-v2', node: 'node-3', status: 'Canary (20%)', restarts: 0, cpu: '15%' };
     setPods(prev => [...prev, canaryPod]);
 
@@ -66,7 +61,6 @@ export default function WarRoom() {
     }, 3000);
   };
 
-  // DevSecOps Malicious CVE Injection
   const handleCVEAttack = () => {
     setClusterState('ATTACK_BLOCKED');
     addLog('ALERT', 'SECURITY EVENT: Deployment of untrusted image "repo/insecure-app:latest" intercepted.');
@@ -79,7 +73,6 @@ export default function WarRoom() {
     }, 1600);
   };
 
-  // Traffic Spike (HPA Autoscale)
   const handleTrafficSpike = () => {
     setClusterState('HPA_SCALING');
     setTrafficRate(890);
@@ -100,7 +93,6 @@ export default function WarRoom() {
     }, 3200);
   };
 
-  // Reset to default
   const handleReset = () => {
     setTrafficRate(142);
     setLatency(24);
@@ -117,38 +109,35 @@ export default function WarRoom() {
   };
 
   return (
-    <section className="bg-graphite-950 py-12 px-4 sm:px-6 border-b border-graphite-800">
+    <section className="bg-[#fcf8f2] py-12 px-4 sm:px-6 border-b-2 border-black neo-grid">
       <div className="mx-auto max-w-7xl">
         
         {/* War Room Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-graphite-800 pb-6 mb-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-black pb-6 mb-8">
           <div>
-            <div className="inline-flex items-center gap-2 font-mono text-xs text-console-green mb-1.5">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-console-green opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-console-green"></span>
-              </span>
+            <div className="inline-flex items-center gap-2 border-2 border-black bg-[#86efac] px-3.5 py-1 font-mono text-xs font-black text-black shadow-neo-sm mb-2">
+              <span className="h-2 w-2 rounded-full bg-black animate-ping"></span>
               <span>LIVE CLUSTER WAR ROOM • MISSION CONTROL NOC</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-black uppercase">
               Interactive Production Operations Center
             </h2>
-            <p className="text-xs sm:text-sm text-graphite-400 mt-1">
+            <p className="text-sm font-medium text-gray-800 mt-1">
               Simulate live chaos engineering, GitOps canaries, shift-left attack blocking, and auto-scaling events.
             </p>
           </div>
 
           {/* Cluster Status Badge */}
           <div className="flex items-center gap-3">
-            <div className="rounded-lg border border-graphite-800 bg-graphite-900/90 px-4 py-2 text-right">
-              <div className="text-[10px] font-mono text-graphite-500 uppercase">System Status</div>
-              <div className="font-mono text-xs font-bold text-console-green flex items-center gap-1.5 justify-end">
-                <span>{clusterState}</span>
+            <div className="border-2 border-black bg-white px-4 py-2 text-right shadow-neo-sm">
+              <div className="text-[10px] font-mono font-bold text-gray-500 uppercase">System Status</div>
+              <div className="font-mono text-xs font-black text-black flex items-center gap-1.5 justify-end">
+                <span className="bg-[#86efac] border border-black px-1.5 py-0.2">{clusterState}</span>
               </div>
             </div>
             <button
               onClick={handleReset}
-              className="rounded-lg border border-graphite-700 bg-graphite-850 p-2.5 text-graphite-300 hover:text-white hover:border-graphite-500 transition-colors"
+              className="neo-btn bg-[#fde047] p-3 text-black font-black"
               title="Reset Cluster"
             >
               <RotateCcw className="h-4 w-4" />
@@ -157,92 +146,92 @@ export default function WarRoom() {
         </div>
 
         {/* Real-time Telemetry Dials */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-          <div className="rounded-lg border border-graphite-800 bg-graphite-900/70 p-3.5">
-            <div className="text-[10px] font-mono text-graphite-400 uppercase">Ingress Traffic</div>
-            <div className="text-xl sm:text-2xl font-mono font-bold text-white mt-1">
-              {trafficRate} <span className="text-xs font-normal text-graphite-500">req/s</span>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div className="neo-card bg-[#fde047] p-4">
+            <div className="text-[11px] font-mono font-black text-black uppercase">Ingress Traffic</div>
+            <div className="text-2xl sm:text-3xl font-mono font-black text-black mt-1">
+              {trafficRate} <span className="text-xs font-normal text-black">req/s</span>
             </div>
-            <div className="text-[10px] text-console-green mt-0.5">● ALB HTTP 200 OK</div>
+            <div className="text-[11px] font-bold text-black mt-1 border-t border-black/40 pt-1">● ALB HTTP 200 OK</div>
           </div>
 
-          <div className="rounded-lg border border-graphite-800 bg-graphite-900/70 p-3.5">
-            <div className="text-[10px] font-mono text-graphite-400 uppercase">p99 Latency</div>
-            <div className="text-xl sm:text-2xl font-mono font-bold text-white mt-1">
-              {latency} <span className="text-xs font-normal text-graphite-500">ms</span>
+          <div className="neo-card bg-[#86efac] p-4">
+            <div className="text-[11px] font-mono font-black text-black uppercase">p99 Latency</div>
+            <div className="text-2xl sm:text-3xl font-mono font-black text-black mt-1">
+              {latency} <span className="text-xs font-normal text-black">ms</span>
             </div>
-            <div className="text-[10px] text-graphite-400 mt-0.5">Target: &lt;50ms</div>
+            <div className="text-[11px] font-bold text-black mt-1 border-t border-black/40 pt-1">Target: &lt;50ms</div>
           </div>
 
-          <div className="rounded-lg border border-graphite-800 bg-graphite-900/70 p-3.5">
-            <div className="text-[10px] font-mono text-graphite-400 uppercase">SLO Availability</div>
-            <div className="text-xl sm:text-2xl font-mono font-bold text-console-green mt-1">
+          <div className="neo-card bg-[#93c5fd] p-4">
+            <div className="text-[11px] font-mono font-black text-black uppercase">SLO Availability</div>
+            <div className="text-2xl sm:text-3xl font-mono font-black text-black mt-1">
               99.982%
             </div>
-            <div className="text-[10px] text-graphite-400 mt-0.5">Target: 99.950%</div>
+            <div className="text-[11px] font-bold text-black mt-1 border-t border-black/40 pt-1">Target: 99.950%</div>
           </div>
 
-          <div className="rounded-lg border border-graphite-800 bg-graphite-900/70 p-3.5">
-            <div className="text-[10px] font-mono text-graphite-400 uppercase">Error Budget</div>
-            <div className="text-xl sm:text-2xl font-mono font-bold text-white mt-1">
+          <div className="neo-card bg-[#fdba74] p-4">
+            <div className="text-[11px] font-mono font-black text-black uppercase">Error Budget</div>
+            <div className="text-2xl sm:text-3xl font-mono font-black text-black mt-1">
               84.6%
             </div>
-            <div className="text-[10px] text-console-green mt-0.5">Burn Rate: 0.2x</div>
+            <div className="text-[11px] font-bold text-black mt-1 border-t border-black/40 pt-1">Burn Rate: 0.2x</div>
           </div>
         </div>
 
         {/* Interactive Incident Playground Controls */}
-        <div className="rounded-xl border border-graphite-800 bg-graphite-900/40 p-4 sm:p-5 mb-8">
-          <div className="flex items-center justify-between mb-3">
-            <span className="font-mono text-xs font-semibold text-white uppercase tracking-wider">
+        <div className="neo-card-lg bg-white p-5 sm:p-6 mb-8">
+          <div className="flex items-center justify-between mb-4 border-b-2 border-black pb-2">
+            <span className="font-mono text-xs font-black text-black uppercase tracking-wider">
               Interactive Incident Drills (Click to Execute):
             </span>
-            <span className="text-[11px] font-mono text-graphite-500">Live Reaction Loop</span>
+            <span className="text-xs font-mono font-bold text-gray-600">Live Reaction Loop</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 font-mono text-xs">
             <button
               onClick={handleChaosKill}
-              className="flex items-center justify-between gap-2 rounded border border-graphite-700 bg-graphite-850 px-3.5 py-2.5 text-graphite-200 hover:border-red-500/60 hover:text-red-400 transition-colors text-left"
+              className="neo-btn flex items-center justify-between gap-2 bg-[#f472b6] p-3 text-black font-black text-left"
             >
               <div>
-                <div className="font-bold">💥 Chaos: Kill Pod</div>
-                <div className="text-[10px] text-graphite-400 font-normal">Test K8s self-healing</div>
+                <div className="text-sm">💥 Chaos: Kill Pod</div>
+                <div className="text-[10px] text-gray-900 font-bold">Test K8s self-healing</div>
               </div>
-              <Play className="h-3 w-3 shrink-0" />
+              <Play className="h-4 w-4 shrink-0 fill-black" />
             </button>
 
             <button
               onClick={handleCanaryDeploy}
-              className="flex items-center justify-between gap-2 rounded border border-graphite-700 bg-graphite-850 px-3.5 py-2.5 text-graphite-200 hover:border-blue-500/60 hover:text-blue-400 transition-colors text-left"
+              className="neo-btn flex items-center justify-between gap-2 bg-[#93c5fd] p-3 text-black font-black text-left"
             >
               <div>
-                <div className="font-bold">🚀 GitOps: Canary Release</div>
-                <div className="text-[10px] text-graphite-400 font-normal">ArgoCD 20% &rarr; 100% sync</div>
+                <div className="text-sm">🚀 GitOps: Canary</div>
+                <div className="text-[10px] text-gray-900 font-bold">ArgoCD 20% &rarr; 100% sync</div>
               </div>
-              <Play className="h-3 w-3 shrink-0" />
+              <Play className="h-4 w-4 shrink-0 fill-black" />
             </button>
 
             <button
               onClick={handleCVEAttack}
-              className="flex items-center justify-between gap-2 rounded border border-graphite-700 bg-graphite-850 px-3.5 py-2.5 text-graphite-200 hover:border-console-green/60 hover:text-console-green transition-colors text-left"
+              className="neo-btn flex items-center justify-between gap-2 bg-[#86efac] p-3 text-black font-black text-left"
             >
               <div>
-                <div className="font-bold">🛡️ DevSecOps: Block CVE</div>
-                <div className="text-[10px] text-graphite-400 font-normal">Kyverno policy drop</div>
+                <div className="text-sm">🛡️ DevSecOps: Block</div>
+                <div className="text-[10px] text-gray-900 font-bold">Kyverno policy drop</div>
               </div>
-              <Play className="h-3 w-3 shrink-0" />
+              <Play className="h-4 w-4 shrink-0 fill-black" />
             </button>
 
             <button
               onClick={handleTrafficSpike}
-              className="flex items-center justify-between gap-2 rounded border border-graphite-700 bg-graphite-850 px-3.5 py-2.5 text-graphite-200 hover:border-amber-500/60 hover:text-amber-400 transition-colors text-left"
+              className="neo-btn flex items-center justify-between gap-2 bg-[#fde047] p-3 text-black font-black text-left"
             >
               <div>
-                <div className="font-bold">⚡ Surge: HPA Autoscale</div>
-                <div className="text-[10px] text-graphite-400 font-normal">Scale replicas 2 &rarr; 4</div>
+                <div className="text-sm">⚡ Surge: Autoscale</div>
+                <div className="text-[10px] text-gray-900 font-bold">Scale replicas 2 &rarr; 4</div>
               </div>
-              <Play className="h-3 w-3 shrink-0" />
+              <Play className="h-4 w-4 shrink-0 fill-black" />
             </button>
           </div>
         </div>
@@ -252,41 +241,41 @@ export default function WarRoom() {
           
           {/* 3 Worker Nodes Grid */}
           <div className="lg:col-span-8 space-y-4">
-            <div className="font-mono text-xs text-graphite-400 uppercase tracking-wider flex items-center justify-between">
+            <div className="font-mono text-xs font-black text-black uppercase tracking-wider flex items-center justify-between">
               <span>EKS Worker Node Topology (ap-south-1)</span>
-              <span className="text-[11px] text-graphite-500">{pods.length} Active Workloads</span>
+              <span className="bg-white border border-black px-2 py-0.5 text-[11px] font-bold">{pods.length} Active Workloads</span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {['node-1', 'node-2', 'node-3'].map((nodeName, nidx) => {
                 const nodePods = pods.filter(p => p.node === nodeName);
                 return (
-                  <div key={nidx} className="rounded-lg border border-graphite-800 bg-graphite-900/80 p-4">
-                    <div className="flex items-center justify-between border-b border-graphite-800/80 pb-2 mb-3 font-mono text-xs">
-                      <div className="flex items-center gap-1.5 text-white font-semibold">
-                        <Server className="h-3.5 w-3.5 text-console-green" />
+                  <div key={nidx} className="neo-card bg-white p-4">
+                    <div className="flex items-center justify-between border-b-2 border-black pb-2 mb-3 font-mono text-xs">
+                      <div className="flex items-center gap-1.5 text-black font-black">
+                        <Server className="h-4 w-4 text-black" />
                         <span>{nodeName}</span>
                       </div>
-                      <span className="text-[10px] text-console-green">Ready</span>
+                      <span className="bg-[#86efac] border border-black px-1.5 py-0.2 text-[10px] font-bold">Ready</span>
                     </div>
 
                     <div className="space-y-2">
                       {nodePods.map((p) => (
                         <div
                           key={p.id}
-                          className={`rounded border p-2 font-mono text-xs transition-all ${
+                          className={`border-2 border-black p-2 font-mono text-xs shadow-neo-sm transition-all ${
                             p.status === 'CrashLoop'
-                              ? 'border-red-500/80 bg-red-950/40 text-red-300'
+                              ? 'bg-[#f472b6] text-black font-black'
                               : p.status.includes('Canary')
-                              ? 'border-blue-500/80 bg-blue-950/40 text-blue-300'
-                              : 'border-graphite-800 bg-graphite-850 text-graphite-200'
+                              ? 'bg-[#93c5fd] text-black font-bold'
+                              : 'bg-[#faf8f5] text-black'
                           }`}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="font-medium truncate">{p.name}</span>
-                            <span className="text-[10px] text-graphite-400">{p.cpu}</span>
+                            <span className="font-bold truncate">{p.name}</span>
+                            <span className="text-[10px] bg-white border border-black px-1 font-bold">{p.cpu}</span>
                           </div>
-                          <div className="text-[10px] text-graphite-400 mt-1 flex items-center justify-between">
+                          <div className="text-[10px] text-gray-800 font-medium mt-1 flex items-center justify-between">
                             <span>Status: {p.status}</span>
                             <span>rst: {p.restarts}</span>
                           </div>
@@ -301,28 +290,28 @@ export default function WarRoom() {
 
           {/* Real-time Syslog & Event Stream */}
           <div className="lg:col-span-4">
-            <div className="rounded-lg border border-graphite-800 bg-graphite-900/90 p-4 font-mono text-xs h-full flex flex-col">
-              <div className="flex items-center justify-between border-b border-graphite-800 pb-2 mb-3">
-                <span className="text-graphite-300 font-semibold uppercase tracking-wider text-[11px]">
+            <div className="neo-card bg-white p-4 font-mono text-xs h-full flex flex-col">
+              <div className="flex items-center justify-between border-b-2 border-black pb-2 mb-3">
+                <span className="text-black font-black uppercase tracking-wider text-xs">
                   Real-Time Event Stream
                 </span>
-                <span className="text-[10px] text-console-green flex items-center gap-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-console-green animate-pulse"></span>
+                <span className="text-[10px] bg-[#86efac] border border-black px-1.5 py-0.5 font-bold flex items-center gap-1">
+                  <span className="h-1.5 w-1.5 rounded-full bg-black animate-pulse"></span>
                   Streaming
                 </span>
               </div>
 
               <div className="flex-1 overflow-y-auto space-y-2 text-[11px] leading-relaxed max-h-72">
                 {eventLogs.map((log, lidx) => (
-                  <div key={lidx} className="flex items-start gap-2 border-l border-graphite-800 pl-2">
-                    <span className="text-graphite-500 shrink-0">{log.time}</span>
-                    <span className={`shrink-0 font-bold ${
-                      log.level === 'CRITICAL' || log.level === 'ALERT' ? 'text-red-400' :
-                      log.level === 'WARN' ? 'text-amber-400' : 'text-console-green'
+                  <div key={lidx} className="flex items-start gap-1.5 border-l-2 border-black pl-2 py-0.5">
+                    <span className="text-gray-500 font-bold shrink-0">{log.time}</span>
+                    <span className={`shrink-0 font-black px-1 border border-black text-[10px] ${
+                      log.level === 'CRITICAL' || log.level === 'ALERT' ? 'bg-[#f472b6] text-black' :
+                      log.level === 'WARN' ? 'bg-[#fde047] text-black' : 'bg-[#86efac] text-black'
                     }`}>
-                      [{log.level}]
+                      {log.level}
                     </span>
-                    <span className="text-graphite-300 break-words">{log.msg}</span>
+                    <span className="text-black font-medium break-words">{log.msg}</span>
                   </div>
                 ))}
               </div>

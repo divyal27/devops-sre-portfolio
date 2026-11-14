@@ -16,19 +16,19 @@ export default function SkillsGrid() {
   };
 
   return (
-    <section id="skills" className="border-b border-graphite-800/80 bg-graphite-950 py-16 px-4 sm:px-6">
+    <section id="skills" className="border-b-2 border-black bg-[#fcf8f2] py-16 px-4 sm:px-6">
       <div className="mx-auto max-w-7xl">
         
         {/* Section Header */}
         <div className="mb-10">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-console-green mb-2">
+          <div className="inline-flex items-center gap-2 border-2 border-black bg-[#fde047] px-3 py-1 font-mono text-xs font-black text-black shadow-neo-sm mb-2">
             <Wrench className="h-3.5 w-3.5" />
             <span>TOOLING &amp; ECOSYSTEM</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-black uppercase">
             Core Technical Skills
           </h2>
-          <p className="text-sm text-graphite-400 mt-1">
+          <p className="text-sm font-medium text-gray-700 mt-1">
             Production-tested technologies across infrastructure, security scanning, and reliability engineering.
           </p>
         </div>
@@ -39,11 +39,13 @@ export default function SkillsGrid() {
             return (
               <div
                 key={idx}
-                className="rounded-xl border border-graphite-800 bg-graphite-900/50 p-5 shadow-elevated"
+                className="neo-card bg-white p-5"
               >
-                <div className="flex items-center gap-2.5 mb-4 border-b border-graphite-800/80 pb-3">
-                  <Icon className="h-4 w-4 text-console-green" />
-                  <h3 className="font-mono text-xs font-semibold text-white uppercase tracking-wider">
+                <div className="flex items-center gap-2.5 mb-4 border-b-2 border-black pb-3">
+                  <div className="p-1.5 border-2 border-black bg-[#fde047] shadow-neo-sm">
+                    <Icon className="h-4 w-4 text-black" />
+                  </div>
+                  <h3 className="font-mono text-xs font-black text-black uppercase tracking-wider">
                     {category}
                   </h3>
                 </div>
@@ -52,7 +54,7 @@ export default function SkillsGrid() {
                   {items.map((item, iidx) => (
                     <span
                       key={iidx}
-                      className="rounded border border-graphite-800 bg-graphite-850 px-2.5 py-1 font-mono text-xs text-graphite-300 hover:text-white hover:border-graphite-700 transition-colors"
+                      className="border border-black bg-[#faf8f5] px-2.5 py-1 font-mono text-xs font-bold text-black hover:bg-[#86efac] transition-colors shadow-neo-sm"
                     >
                       {item}
                     </span>

@@ -2,41 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
-}
-
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #090a0c;
-  color: #e2e6ed;
+  background-color: #fcf8f2;
+  color: #000000;
   overflow-x: hidden;
 }
 
-/* Custom subtle scrollbar */
+/* Neo-Brutalist Dot Grid */
+.neo-grid {
+  background-image: radial-gradient(#000000 1.2px, transparent 1.2px);
+  background-size: 20px 20px;
+}
+
+/* Custom Neo Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #090a0c;
+  background: #fcf8f2;
+  border-left: 2px solid #000000;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e2126;
-  border-radius: 3px;
+  background: #000000;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2b2f36;
+  background: #fde047;
 }
 
-/* Code & Telemetry Font utility */
-.font-mono {
-  font-family: 'JetBrains Mono', monospace;
+/* Neo Brutalist Button Tactile Physics */
+.neo-btn {
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0px 0px #000000;
+  transition: all 0.12s ease-in-out;
+}
+.neo-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px 0px #000000;
+}
+.neo-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px 0px #000000;
 }
 
-/* Subtle dot-grid background for terminal/engineering feel */
-.bg-grid-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 24px 24px;
+.neo-card {
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px 0px #000000;
+}
+
+.neo-card-lg {
+  border: 3px solid #000000;
+  box-shadow: 6px 6px 0px 0px #000000;
 }
