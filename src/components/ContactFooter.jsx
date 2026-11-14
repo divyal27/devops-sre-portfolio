@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'sonner';
 import { portfolioData } from '../data/portfolioData';
 import { Mail, Phone, MapPin, Copy, Check, ExternalLink } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
@@ -10,6 +11,7 @@ export default function ContactFooter({ onOpenResume }) {
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(profile.email);
     setCopied(true);
+    toast.success(`Copied to clipboard: ${profile.email}`);
     setTimeout(() => setCopied(false), 2000);
   };
 

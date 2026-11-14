@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
+import { toast } from 'sonner';
 import { Activity, ShieldAlert, Cpu, Server, Play, RotateCcw, Flame, CheckCircle2, AlertTriangle, Zap } from 'lucide-react';
 
 export default function WarRoom() {
@@ -29,6 +30,7 @@ export default function WarRoom() {
 
   const handleChaosKill = () => {
     setClusterState('CHAOS_RECOVERING');
+    toast.error('CHAOS INJECTION: SIGKILL sent to pod/api-gateway-1');
     addLog('WARN', 'CHAOS INJECTION: SIGKILL delivered to pod/api-gateway-1.');
     setPods(prev => prev.map(p => p.id === 'api-1' ? { ...p, status: 'CrashLoop', restarts: p.restarts + 1 } : p));
     setLatency(82);
@@ -42,12 +44,14 @@ export default function WarRoom() {
       setLatency(24);
       setClusterState('STEADY_STATE');
       addLog('INFO', 'HEALTH RESTORED: pod/api-gateway-1 successfully running. MTTR: 2.8s.');
+      toast.success('HEALTH RESTORED: Pod self-healed in 2.8s (0 downtime)');
       confetti({ particleCount: 30, spread: 50, origin: { y: 0.6 } });
     }, 2800);
   };
 
   const handleCanaryDeploy = () => {
     setClusterState('CANARY_ROLLOUT');
+    toast.info('GITOPS: ArgoCD initiating 20% Canary rollout (v2.1.0)');
     addLog('INFO', 'GITOPS EVENT: ArgoCD detected commit "release-v2.1.0". Initiating Canary rollout.');
     const canaryPod = { id: 'api-v2', name: 'api-gateway-v2', node: 'node-3', status: 'Canary (20%)', restarts: 0, cpu: '15%' };
     setPods(prev => [...prev, canaryPod]);
@@ -61,12 +65,14 @@ export default function WarRoom() {
       addLog('INFO', 'Canary passed: Promoting v2.1.0 to 100%. Draining legacy v1 replicas.');
       setPods(prev => prev.map(p => p.id === 'api-v2' ? { ...p, status: 'Running', name: 'api-gateway' } : p).filter(p => p.id !== 'api-1'));
       setClusterState('STEADY_STATE');
+      toast.success('CANARY DEPLOYED: v2.1.0 promoted to 100% production');
       confetti({ particleCount: 45, spread: 70, origin: { y: 0.6 } });
     }, 3000);
   };
 
   const handleCVEAttack = () => {
     setClusterState('ATTACK_BLOCKED');
+    toast.warning('DEVSECOPS: Intercepting untrusted image deploy');
     addLog('ALERT', 'SECURITY EVENT: Deployment of untrusted image "repo/insecure-app:latest" intercepted.');
     addLog('WARN', 'Kyverno Admission Controller evaluating image signature with Cosign...');
 
@@ -74,6 +80,7 @@ export default function WarRoom() {
       addLog('CRITICAL', 'POLICY VIOLATION: Image unsigned + Trivy detected CVE-2024-38063 (CVSS 9.8).');
       addLog('INFO', 'ADMISSION REJECTED: Deployment blocked before hitting cluster worker nodes.');
       setClusterState('STEADY_STATE');
+      toast.error('ADMISSION BLOCKED: Unsigned image + CVE-2024-38063 rejected by Kyverno');
     }, 1600);
   };
 
@@ -81,6 +88,7 @@ export default function WarRoom() {
     setClusterState('HPA_SCALING');
     setTrafficRate(890);
     setLatency(48);
+    toast.warning('TRAFFIC SURGE: Ingress rate spiked to 890 req/s');
     addLog('WARN', 'TRAFFIC SURGE: Ingress rate spiked to 890 req/s. Target CPU utilization exceeded (78%).');
 
     setTimeout(() => {
@@ -94,6 +102,7 @@ export default function WarRoom() {
     setTimeout(() => {
       addLog('INFO', 'CAPACITY STABILIZED: Load rebalanced across 3 availability zones.');
       setClusterState('STEADY_STATE');
+      toast.success('HPA AUTOSCALED: 4 replicas active across 3 AZs');
       confetti({ particleCount: 35, spread: 60, origin: { y: 0.6 } });
     }, 3200);
   };

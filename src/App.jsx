@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Toaster, toast } from 'sonner';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import RoleCockpit from './components/RoleCockpit';
@@ -16,12 +17,30 @@ export default function App() {
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
 
-  // Keyboard shortcut listener: Ctrl + ~ or Ctrl + ` to toggle CLI
+  // Global Keyboard Shortcuts (Emil Kowalski Design Eng Standard)
   useEffect(() => {
     const handleKeyDown = (e) => {
+      // Don't trigger hotkeys if typing in an input
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        return;
+      }
+
       if ((e.ctrlKey || e.metaKey) && (e.key === '`' || e.key === '~')) {
         e.preventDefault();
         setIsTerminalOpen((prev) => !prev);
+      } else if (e.key === '1') {
+        setActiveTrack('devops');
+        toast.info('Switched to DevOps Track [1]');
+      } else if (e.key === '2') {
+        setActiveTrack('devsecops');
+        toast.info('Switched to DevSecOps Track [2]');
+      } else if (e.key === '3') {
+        setActiveTrack('sre');
+        toast.info('Switched to SRE Track [3]');
+      } else if (e.key === 'w' || e.key === 'W') {
+        setViewMode(prev => prev === 'spec' ? 'warroom' : 'spec');
+      } else if (e.key === 'r' || e.key === 'R') {
+        setIsResumeOpen(true);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -30,6 +49,23 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#fcf8f2] text-black">
+      {/* Neo-Brutalist Toast Notifications */}
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          style: {
+            background: '#ffffff',
+            border: '2px solid #000000',
+            color: '#000000',
+            fontFamily: 'JetBrains Mono, monospace',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            boxShadow: '4px 4px 0px #000000',
+            borderRadius: '0px',
+          }
+        }}
+      />
+
       <Header
         viewMode={viewMode}
         setViewMode={setViewMode}
@@ -40,7 +76,6 @@ export default function App() {
       <main>
         {viewMode === 'warroom' ? (
           <div>
-            {/* Live Operations Center / Cluster War Room */}
             <WarRoom />
             {/* Contextual link to return to spec */}
             <div className="bg-[#fde047] border-b-2 border-black py-4 px-4 text-center font-mono text-xs font-bold text-black">
@@ -49,7 +84,7 @@ export default function App() {
                 onClick={() => setViewMode('spec')}
                 className="underline bg-white border border-black px-2 py-0.5 ml-1.5 shadow-neo-sm hover:bg-black hover:text-white transition-colors"
               >
-                Switch to Spec Cockpit &rarr;
+                Switch to Spec Cockpit [W] &rarr;
               </button>
             </div>
           </div>
@@ -77,7 +112,7 @@ export default function App() {
                   onClick={() => setViewMode('warroom')}
                   className="neo-btn bg-[#fde047] px-6 py-3 font-mono text-xs font-black text-black uppercase"
                 >
-                  🕹️ Launch Cluster War Room (NOC Mode)
+                  🕹️ Launch Cluster War Room [Press W]
                 </button>
               </div>
             </div>

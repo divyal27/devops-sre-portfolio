@@ -1,5 +1,6 @@
 import React from 'react';
-import { Terminal, Mail, FileDown, Layers, Activity } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Terminal, FileDown, Layers, Activity } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 export default function Header({
@@ -10,15 +11,15 @@ export default function Header({
 }) {
   return (
     <header className="sticky top-0 z-40 w-full border-b-2 border-black bg-[#fcf8f2] backdrop-blur-md">
-      {/* Top neo-brutalist status ribbon */}
+      {/* Top telemetry ribbon */}
       <div className="border-b-2 border-black bg-[#fde047] px-4 py-1.5 text-xs font-mono font-bold text-black">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-[#22c55e] border border-black animate-pulse"></span>
-            <span>CLUSTER STATUS: HEALTHY • 3 NODES ONLINE [AWS EKS 1.30]</span>
+            <span>CLUSTER: HEALTHY • 3 NODES AP-SOUTH-1 [EKS 1.30]</span>
           </div>
-          <div className="hidden sm:block uppercase tracking-wider">
-            DIVYAL PADALKAR • DEVOPS / DEVSECOPS / SRE • PUNE, IN
+          <div className="hidden md:flex items-center gap-3 text-[11px] uppercase tracking-wider text-black">
+            <span>SHORTCUTS: <kbd className="bg-white px-1 border border-black shadow-neo-sm">[1-3]</kbd> ROLES • <kbd className="bg-white px-1 border border-black shadow-neo-sm">[W]</kbd> WAR ROOM • <kbd className="bg-white px-1 border border-black shadow-neo-sm">[R]</kbd> RESUME</span>
           </div>
         </div>
       </div>
@@ -28,18 +29,24 @@ export default function Header({
         
         {/* Left: Hostname & Dual Cockpit Selector */}
         <div className="flex items-center gap-4">
-          <a href="#" className="flex items-center gap-2 font-mono text-sm font-extrabold tracking-tight text-black hover:text-[#2563eb] transition-colors">
+          <motion.a
+            whileHover={{ scale: 1.02 }}
+            href="#"
+            className="flex items-center gap-2 font-mono text-sm font-extrabold tracking-tight text-black hover:text-[#2563eb] transition-colors"
+          >
             <span className="bg-[#86efac] border-2 border-black px-1.5 py-0.5 text-black shadow-neo-sm">
               &gt;_
             </span>
             <span className="text-base">divyal.padalkar</span>
-          </a>
+          </motion.a>
 
           {/* DUAL COCKPIT MODE SELECTOR */}
-          <div className="hidden md:flex items-center gap-1.5 font-mono text-xs">
-            <button
+          <div className="hidden md:flex items-center gap-2 font-mono text-xs">
+            <motion.button
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => setViewMode('spec')}
-              className={`flex items-center gap-1.5 rounded-none px-3 py-1.5 border-2 border-black font-bold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 border-2 border-black font-bold transition-all ${
                 viewMode === 'spec'
                   ? 'bg-[#93c5fd] shadow-neo translate-x-[-1px] translate-y-[-1px]'
                   : 'bg-white hover:bg-gray-100 shadow-neo-sm'
@@ -47,11 +54,13 @@ export default function Header({
             >
               <Layers className="h-3.5 w-3.5 text-black" />
               <span>Spec Cockpit</span>
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => setViewMode('warroom')}
-              className={`flex items-center gap-1.5 rounded-none px-3 py-1.5 border-2 border-black font-bold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 border-2 border-black font-bold transition-all ${
                 viewMode === 'warroom'
                   ? 'bg-[#86efac] shadow-neo translate-x-[-1px] translate-y-[-1px]'
                   : 'bg-white hover:bg-gray-100 shadow-neo-sm'
@@ -59,7 +68,8 @@ export default function Header({
             >
               <Activity className="h-3.5 w-3.5 text-black" />
               <span>Cluster War Room</span>
-            </button>
+              <span className="text-[10px] bg-black text-white px-1 py-0.2 border border-black">W</span>
+            </motion.button>
           </div>
         </div>
 
@@ -67,26 +77,34 @@ export default function Header({
         <div className="flex items-center gap-2.5">
           
           {/* Download 1-Page ATS Resume */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             onClick={onOpenResume}
             className="neo-btn flex items-center gap-1.5 bg-[#86efac] px-3.5 py-1.5 font-mono text-xs font-bold text-black"
           >
             <FileDown className="h-4 w-4" />
             <span className="hidden sm:inline">ATS Resume</span>
             <span className="sm:hidden">Resume</span>
-          </button>
+            <span className="hidden lg:inline text-[9px] bg-black text-white px-1 py-0.2 border border-black">R</span>
+          </motion.button>
 
           {/* Interactive Terminal Trigger */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             onClick={onOpenTerminal}
             className="neo-btn flex items-center gap-1.5 bg-[#fde047] px-3 py-1.5 font-mono text-xs font-bold text-black"
-            title="Open Interactive DevOps CLI"
+            title="Open Interactive DevOps CLI (~ or Ctrl + `)"
           >
             <Terminal className="h-4 w-4" />
             <span className="hidden sm:inline">CLI</span>
-          </button>
+            <span className="hidden lg:inline text-[9px] bg-black text-white px-1 py-0.2 border border-black">~</span>
+          </motion.button>
 
-          <a
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             href="https://github.com/divyal27"
             target="_blank"
             rel="noopener noreferrer"
@@ -94,9 +112,11 @@ export default function Header({
             aria-label="GitHub Profile"
           >
             <GithubIcon className="h-4 w-4" />
-          </a>
+          </motion.a>
 
-          <a
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             href="https://www.linkedin.com/in/divyal-padalkar2704/"
             target="_blank"
             rel="noopener noreferrer"
@@ -104,7 +124,7 @@ export default function Header({
             aria-label="LinkedIn Profile"
           >
             <LinkedinIcon className="h-4 w-4" />
-          </a>
+          </motion.a>
         </div>
       </div>
 
@@ -126,7 +146,7 @@ export default function Header({
           }`}
         >
           <Activity className="h-3.5 w-3.5 text-black" />
-          <span>War Room (NOC)</span>
+          <span>War Room</span>
         </button>
       </div>
     </header>
