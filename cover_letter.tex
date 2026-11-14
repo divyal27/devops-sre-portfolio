@@ -1,0 +1,99 @@
+%-------------------------
+% Professional Cover Letter in LaTeX (Matching Jake's Resume Aesthetic)
+% Candidate : Divyal Padalkar
+% Target    : SRE / Software Engineer II (Site Reliability) - Zensar, Pune
+% Includes  : Real Digital Signature Integration
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[colorlinks=true,linkcolor=MidnightBlue,urlcolor=MidnightBlue]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\pdfgentounicode=1
+
+\begin{document}
+
+%----------HEADER----------
+\begin{center}
+    \textbf{\Huge \scshape Divyal Padalkar} \\ \vspace{3pt}
+    \small +91 7498841528 $|$ \href{mailto:divyal0612@gmail.com}{\underline{divyal0612@gmail.com}} $|$ 
+    \href{https://devops-sre-portfolio.vercel.app}{\underline{Portfolio}} $|$
+    \href{https://github.com/divyal27}{\underline{GitHub}} $|$
+    \href{https://www.linkedin.com/in/divyal-padalkar2704/}{\underline{LinkedIn}} $|$
+    \small Pune, India
+\end{center}
+
+\vspace{-4pt}
+\hrule
+\vspace{14pt}
+
+%----------DATE & RECIPIENT----------
+\noindent \textbf{November 14, 2026} \\ \vspace{8pt}
+
+\noindent \textbf{Hiring Team / Engineering Leadership} \\
+Site Reliability Engineering (SRE) — Fraud Decision Management Platform \\
+Zensar Technologies \\
+Pune, Maharashtra, India \\
+
+\vspace{10pt}
+\noindent \textbf{Subject: Application for Software Engineer II (Site Reliability) — SRE Offshore (Pune)} \\
+
+\vspace{8pt}
+\noindent Dear Hiring Team,
+
+\vspace{6pt}
+I am writing to express my strong enthusiasm for the **Software Engineer II (Site Reliability)** position supporting the Fraud Decision Management Platform (DMP) at Zensar. With hands-on internship experience engineering high-availability cloud infrastructure on AWS EKS, configuring enterprise observability pipelines, and driving automated incident remediation, I am eager to contribute to the resilience, scalability, and sub-second decisioning throughput of your global authentication platforms.
+
+Currently as a DevOps Intern at Hisan Labs, I actively manage production workloads where reliability and latency are paramount. By configuring centralized ELK Stack logging and Prometheus alerting rules, I reduced our average Mean Time to Resolution (MTTR) by 35\% across 3 core microservices. Additionally, I automated multi-environment configuration management with Ansible playbooks (cutting manual setup time by $\sim$50\%) and engineered GitHub Actions CI/CD workflows enforcing automated pre-production quality gates and rollback mechanisms.
+
+Your team’s focus on operating resilient cloud systems and integrating AI-driven operational automation strongly aligns with my practical background:
+\begin{itemize}[leftmargin=0.25in, itemsep=-2pt]
+    \item \textbf{Cloud \& Container Orchestration:} Built and managed production-grade Kubernetes clusters on AWS EKS with Terraform IaC, configuring multi-AZ worker node autoscaling, network security boundaries, and container lifecycle policies.
+    \item \textbf{Observability \& Google SRE Framework:} Architected the \textit{SlOps SRE Platform}, implementing SLI/SLO telemetry, multi-window error budget burn rate alerting, and PromQL recording rules with Prometheus, Grafana, and OpenTelemetry to eliminate alert fatigue.
+    \item \textbf{AI-Driven SRE Workflows:} Developed Python anomaly detection pipelines and log analyzers (leveraging Claude APIs and CLI automation) to rapidly identify outlier latency spikes, cluster error traces, and accelerate root-cause analysis (RCA).
+    \item \textbf{Agile Delivery \& Incident Triage:} Comfortable collaborating in cross-functional Agile Scrum environments, troubleshooting Linux production issues, and authoring operational runbooks.
+\end{itemize}
+
+I am inspired by Zensar's commitment to experience-led engineering and the scale of processing over a billion real-time fraud decisions daily. I would welcome the opportunity to discuss how my hands-on SRE foundation, automation mindset, and engineering discipline can support your platform's operational excellence.
+
+Thank you for your time and consideration.
+
+\vspace{12pt}
+\noindent Sincerely, \\ \vspace{4pt}
+
+% Digital Signature Image
+\noindent \includegraphics[width=1.5in]{signature.jpg} \\ \vspace{2pt}
+\noindent \textbf{Divyal Padalkar} \\
+\noindent Final-Year Computer Engineering, SPPU \\
+\noindent +91 7498841528 $|$ \href{mailto:divyal0612@gmail.com}{divyal0612@gmail.com}
+
+\end{document}
