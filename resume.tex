@@ -1,0 +1,188 @@
+%-------------------------
+% Resume in Latex (Jake's Resume Template)
+% Author : Divyal Padalkar
+% Based on: https://github.com/jakegut/resume
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins for strict 1-page fit
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-5pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-4pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-6pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-6pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\setlength{\footskip}{4.08003pt}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Divyal Padalkar} \\ \vspace{2pt}
+    \small +91 7498841528 $|$ \href{mailto:divyal0612@gmail.com}{\underline{divyal0612@gmail.com}} $|$ 
+    \href{https://devops-sre-portfolio.vercel.app}{\underline{Portfolio}} $|$
+    \href{https://github.com/divyal27}{\underline{GitHub}} $|$
+    \href{https://www.linkedin.com/in/divyal-padalkar2704/}{\underline{LinkedIn}} $|$
+    \small Pune, India
+\end{center}
+
+%-----------SUMMARY-----------
+\vspace{-8pt}
+\section{Summary}
+\small{Final-year Computer Engineering student with hands-on DevOps internship experience automating infrastructure, CI/CD pipelines, monitoring, and incident triage/root-cause resolution in production. Builds observability, automation, and secure-delivery tooling across AWS, Kubernetes, and CI/CD, with a focus on reliability, capacity planning, and production-readiness. Seeking DevOps, SRE, and DevSecOps internships and fresher roles.}
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {DevOps Intern}{Feb 2026 -- Present}
+      {Hisan Labs Pvt. Ltd.}{Pune, India}
+      \resumeItemListStart
+        \resumeItem{Automated configuration management across staging and production using Ansible playbooks, ensuring environment consistency and cutting manual setup time by $\sim$50\%.}
+        \resumeItem{Reduced MTTR by $\sim$35\% across 3 services by configuring ELK Stack alerting and Prometheus rules, cutting average incident resolution from 40 min to 26 min.}
+        \resumeItem{Designed GitHub Actions CI/CD workflows for pre-production acceptance testing, enforcing automated quality gates and reducing failed deployments by $\sim$30\%.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Full Stack Web Development Intern}{Jan 2026 -- Feb 2026}
+      {Widesoftech Pvt. Ltd.}{Pune, India}
+      \resumeItemListStart
+        \resumeItem{Built and deployed InternMeets, a live student internship platform, handling real-world deployment, debugging, and incident resolution within a cross-functional team in under 4 weeks.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\textbf{GitOps-Driven Kubernetes Platform on AWS EKS} $|$ \emph{AWS, EKS, Docker, K8s, Terraform, ArgoCD}}{}
+          \resumeItemListStart
+            \resumeItem{Built a production-grade GitOps platform on AWS EKS using modular Terraform and ArgoCD to automate application deployments, automated reconciliation, and zero-downtime rollouts.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{SlOps SRE Observability Platform} $|$ \emph{Python, Kubernetes, Terraform, GitHub Actions, Prometheus, Grafana}}{}
+          \resumeItemListStart
+            \resumeItem{Built a self-service SRE platform adhering to the Google SRE framework, implementing PromQL recording rules, multi-window burn rate alerts, and operational Prometheus/Grafana dashboards.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{Shift-Left Security Pipeline} $|$ \emph{GitHub Actions, DevSecOps, Trivy, SonarQube, Bandit, SAST, Cosign}}{}
+          \resumeItemListStart
+            \resumeItem{Implemented an automated DevSecOps pipeline applying shift-left security in CI/CD through static code scanning, dependency auditing, container vulnerability scanning, and pre-deployment policy enforcement.}
+          \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Genba Sopanrao Moze College of Engineering, SPPU}{2023 -- 2027}
+      {B.E. Computer Engineering}{Pune, India}
+  \resumeSubHeadingListEnd
+
+%-----------CERTIFICATIONS-----------
+\section{Certifications}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Building with the Claude API} (Anthropic) $|$ \textbf{Claude Code in Action} (Anthropic) $|$ \textbf{Advanced Testing Practices Using AWS DevOps Tools} (AWS)
+    }}
+ \end{itemize}
+ \vspace{-10pt}
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Cloud \& Infrastructure}{: AWS (EKS, VPC, EC2, S3, IAM), GCP, Azure, Linux (RHEL, Ubuntu)} \\
+     \textbf{Containers \& Orchestration}{: Docker, Kubernetes, Helm, Containerd} \\
+     \textbf{CI/CD \& GitOps}{: GitHub Actions, Jenkins, GitLab CI, ArgoCD} \\
+     \textbf{IaC \& Configuration}{: Terraform, Ansible, Bash, YAML, Java} \\
+     \textbf{Monitoring \& Observability}{: Prometheus, Grafana, ELK Stack, Datadog, Dynatrace, AWS CloudWatch} \\
+     \textbf{DevSecOps \& AIOps}{: Trivy, SonarQube, Bandit, SAST, Cosign, Moogsoft, Splunk ITSI} \\
+     \textbf{VCS \& Tooling}{: Git, GitHub, GitLab}
+    }}
+ \end{itemize}
+
+%-------------------------------------------
+\end{document}
